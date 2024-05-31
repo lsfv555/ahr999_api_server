@@ -1,9 +1,9 @@
 import base64
 import requests
+import time
 
-server_url = "http://127.0.0.1:11451/"
-url = "https://api.day.app/XXXXXXXXXXXXXXXXXXX/"
-bark_token = "XXXXXXXXXXXXXXXXXXX"
+server_url = "https://127.0.0.1:11451/"
+url = "https://api.day.app/Xxxxxxxxxxx/"
 encoded_url = base64.urlsafe_b64encode(url.encode('utf-8')).decode('utf-8')
 print(f"encoded url: {encoded_url}")
 
@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
     # /send_token
     get_url = f"{server_url}send_token"
-    get_params = {"token": bark_token}
+    get_params = {"encoded_url": encoded_url}
     get_response = get_request(get_url, get_params)
     print("send_token result:", get_response)
 
@@ -49,27 +49,32 @@ if __name__ == "__main__":
     # bark_subscribe
     post_url = f"{server_url}bark_subscribe"
     enable_notification = True
-    quote_threshold_value = 0.1
+    quote_threshold_value = 2
     query_params = {
         "encoded_url": encoded_url,
         "enable_quote_notif": True,
-        "quote_threshold": 1.0
+        "quote_threshold": quote_threshold_value
     }
     # send POST
     post_response = post_request(post_url, params=query_params)
     print("Subscribe result:", post_response)
 
+    time.sleep(1)
+
     # bark_unsubscribe
     query_params = {
         "encoded_url": encoded_url,
-
     }
     post_url = f"{server_url}bark_unsubscribe"
+    post_response = post_request(post_url, params=query_params)
     print("Subscribe result:", post_response)
 
-    # post_url = f"{server_url}bark_subscribe"
-    # post_data = {"encoded_url": encoded_url}
-    # post_response = post_request(post_url, post_data)
-    # print("Unsubscribe result:", post_response)
+    time.sleep(1)
+
+    # /get_subscribe_data
+    get_url = f"{server_url}get_subscribe_data"
+    get_response = get_request(get_url)
+    print("get_subscribe_data result:", get_response)
+
 
 
