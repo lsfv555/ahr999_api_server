@@ -90,9 +90,9 @@ python start.py
 
 ##### API 文档
 
+- **获取一次指标**: `/send_token` (GET)
 - **获取完整数据**: `/get_full_data` (GET)
 - **发送订阅**: `/bark_subscribe` (POST)
 - **取消订阅**: `/bark_unsubscribe` (POST)
-
-详细 API 文档请参考 [API 文档](#)。
+- **获取订阅信息**: `/get_subscribe` (GET)
 
